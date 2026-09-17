@@ -55,5 +55,13 @@
       in {
         packages.default = livox-sdk2;
         packages.livox-sdk2 = livox-sdk2;
+
+        # The glue dimos modules share on top of the SDK: writing its JSON config to
+        # an in-memory file, sizing a PointCloud2, and the estimator-pose guard.
+        # Header-only, so this is just the directory -- point cmake at it with
+        # -DLIVOX_COMMON_DIR=${...}.
+        packages.livox-common = pkgs.runCommand "livox-common" { } ''
+          cp -r ${./livox_common} $out
+        '';
       });
 }

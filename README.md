@@ -28,3 +28,14 @@ repo adds is:
 ```
 
 `nix build` gives you the shared library and headers.
+
+## livox_common
+
+`packages.livox-common` is a small set of header-only helpers that sit on top of the
+SDK — writing its JSON config to an in-memory file (the SDK only takes a path), sizing
+an XYZI `PointCloud2`, and a guard for uninitialised estimator poses. They were
+duplicated across three module directories in dimensionalOS/dimos before living here.
+
+```nix
+cmakeFlags = [ "-DLIVOX_COMMON_DIR=${livox-sdk2.packages.${system}.livox-common}" ];
+```
